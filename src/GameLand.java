@@ -117,43 +117,46 @@ public class GameLand implements Runnable, KeyListener {
             startLevel1();
         }
     }
-    public void startLevel1(){
+    public void startLevel1() {
         //construct array of fruits
         lemon = new ArrayList<>();
         lime = new ArrayList<>();
         strawberry = new ArrayList<>();
         cherry = new ArrayList<>();
-        for (int k = 0; k < 10; k = k + 1) { //we must use an int for k<10 and not lemon.size
+        for (int k = 21; k < 301; k = k + 28) { //we must use an int for k<10 and not lemon.size
             int randX = (int) (Math.random() * 1000);
-            int randY = k*(-700)+0;
-            lemon.add(new Character(randX, randY, 0, 3, 100, 100));
+            int randY = k * (-100);
+            lemon.add(new Character(randX, randY, 0, 6, 100, 100));
         }
-        for (int l = 0; l < 10; l = l + 1) {
+        for (int l = 14; l < 295; l = l + 28) {
             int randX = (int) (Math.random() * 1000);
-            int randY = l*(-700)+700;
-            lime.add(new Character(randX, randY, 0, 3, 75, 75));
+            int randY = l * (-100);
+            lime.add(new Character(randX, randY, 0, 6, 75, 75));
         }
-        for (int s = 0; s < 10; s = s + 1) {
+        for (int s = 7; s < 288; s = s + 28) {
             int randX = (int) (Math.random() * 1000);
-            int randY = s*(-700)+1400;
-            strawberry.add(new Character(randX, randY, 0, 3, 50, 50));
+            int randY = s * (-100);
+            strawberry.add(new Character(randX, randY, 0, 6, 50, 50));
         }
-        for (int c = 0; c < 10; c = c + 1) {
+        for (int c = 0; c < 281; c = c + 28) {
             int randX = (int) (Math.random() * 1000);
-            int randY = c*(-700)+2100;
-            cherry.add(new Character(randX, randY, 0, 3, 50, 50));
+            int randY = c * (-100);
+            cherry.add(new Character(randX, randY, 0, 6, 50, 50));
         }
         //reset start time
-        startTime=System.currentTimeMillis();
+        startTime = System.currentTimeMillis();
         //reset score
-        score=0;
+        score = 0;
     }
 
     public void timer(){
         //get the current time
         currentTime=System.currentTimeMillis();
         //calculate the elapsed time, convert it to seconds and cast as an int
-        elapsedTime=(int)((currentTime-startTime)*.001); //multiply to convert to sec
+        elapsedTime=60-((int)((currentTime-startTime)*.001));//multiply to convert to sec
+        if (elapsedTime==0){
+            gameOver=true;
+        }
     }
     // main thread
     // this is the code that plays the game after you set things up
@@ -211,10 +214,8 @@ public class GameLand implements Runnable, KeyListener {
             }
 
         }
-        if(gameOver) {
-            if (startTime > 45) {
-                g.drawImage(gameOverPic, 0, 0, 400, 350, null);
-            }
+        if(gameOver==true) {
+            g.drawImage(gameOverPic, 0, 0, WIDTH, HEIGHT, null);
         }
 
         //dispose the images each time(this allows for the illusion of movement).
